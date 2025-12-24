@@ -1,0 +1,108 @@
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+  margin: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* =========================
+   GAME CONTAINER
+========================= */
+
+#game {
+  width: 1000px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+
+  /* ROOM BACKGROUND (ADD YOUR ROOM IMAGE HERE) */
+  background-image: url("assets/room1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: black;
+}
+
+/* =========================
+   BASE SPRITE STYLE
+========================= */
+
+.sprite {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+/* =========================
+   SPRITES BEFORE CLICK
+========================= */
+
+.sprite.canvas {
+  background-image: url("assets/canvas.png");
+  height: 78%;
+  width: 5%;
+}
+
+.sprite.vase {
+  background-image: url("assets/vase.png");
+}
+
+.sprite.frame {
+  background-image: url("assets/frame.png");
+  width: 40%;
+  height: 45%;
+}
+
+.sprite.sheet {
+  background-image: url("assets/rolled\ sheet\ .png");
+}
+
+.sprite.box {
+  background-image: url("assets/box.png");
+  height: 6%;
+  width: 6%;
+}
+
+/* =========================
+   SPRITES AFTER CLICK (REVEALED)
+========================= */
+
+.sprite.revealed {
+  transform: scale(1.6);
+  z-index: 10;
+}
+
+.sprite.canvas.revealed {
+  background-image: url("assets/redClue.png");
+}
+
+.sprite.vase.revealed {
+  background-image: url("assets/paper\ Blue.png");
+}
+
+.sprite.frame.revealed {
+  background-image: url("assets/paper\ yellow.png");
+  width: 20%;
+  height: 20%;
+}
+
+.sprite.sheet.revealed {
+  background-image: url("assets/color\ sheet.png");
+}
+
+.sprite.box.revealed {
+  background-image: url("assets/code\ panel.png");
+}
