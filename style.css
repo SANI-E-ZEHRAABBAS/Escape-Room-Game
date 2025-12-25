@@ -1,108 +1,129 @@
-/* =========================
-   GLOBAL
-========================= */
-
-body {
+* {
   margin: 0;
-  background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* =========================
-   GAME CONTAINER
-========================= */
+body {
+  background: black;
+  font-family: sans-serif;
+}
+
+.header, .footer {
+  background: rgba(105,68,19,0.8);
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
 
 #game {
   width: 1000px;
   height: 600px;
+  margin: 40px auto;
   position: relative;
+  background: url("assets/room1.jpg") center/contain no-repeat black;
   overflow: hidden;
-
-  /* ROOM BACKGROUND (ADD YOUR ROOM IMAGE HERE) */
-  background-image: url("assets/room1.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  background-color: black;
 }
 
-/* =========================
-   BASE SPRITE STYLE
-========================= */
+/* ================= SPRITES ================= */
 
 .sprite {
   position: absolute;
   width: 80px;
   height: 80px;
-
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
-
   cursor: pointer;
-  transition: transform 0.4s ease, opacity 0.3s ease;
+  transition: transform 0.4s;
 }
-
-/* =========================
-   SPRITES BEFORE CLICK
-========================= */
-
-.sprite.canvas {
-  background-image: url("assets/canvas.png");
-  height: 78%;
-  width: 5%;
-}
-
-.sprite.vase {
-  background-image: url("assets/vase.png");
-}
-
-.sprite.frame {
-  background-image: url("assets/frame.png");
-  width: 40%;
-  height: 45%;
-}
-
-.sprite.sheet {
-  background-image: url("assets/rolled\ sheet\ .png");
-}
-
-.sprite.box {
-  background-image: url("assets/box.png");
-  height: 6%;
-  width: 6%;
-}
-
-/* =========================
-   SPRITES AFTER CLICK (REVEALED)
-========================= */
 
 .sprite.revealed {
-  transform: scale(1.6);
-  z-index: 10;
+  transform: scale(1.5);
+  z-index: 5;
 }
 
-.sprite.canvas.revealed {
-  background-image: url("assets/redClue.png");
+/* BEFORE */
+.canvas { 
+  background-image: url("assets/canvas.png"); 
+  width: 60px;
+  height: 60px;
+}
+.vase   { 
+  background-image: url("assets/vase.png"); 
+}
+.frame  { 
+  background-image: url("assets/frame.png");
+  width: 65px;
+  height: 65px;
+}
+.sheet  { 
+  background-image: url("assets/rolled sheet.png"); 
+  width: 55px;
+  height: 55px;
+}
+.box    { 
+  background-image: url("assets/box.png"); 
+  width: 40px;
+  height: 40px;
 }
 
-.sprite.vase.revealed {
-  background-image: url("assets/paper\ Blue.png");
+/* AFTER */
+.canvas.revealed { 
+  background-image: url("assets/redClue.png"); 
+}
+.vase.revealed   { 
+  background-image: url("assets/paper Blue.png"); 
+}
+.frame.revealed  { 
+  background-image: url("assets/paper yellow.png"); 
+  /* width: 80px;
+  height: 80px; */
+}
+.sheet.revealed  { 
+  background-image: url("assets/color sheet.png"); 
+  width: 100px;
+  height: 100px;
+}
+.box.revealed    { 
+  background-image: url("assets/key.png"); 
 }
 
-.sprite.frame.revealed {
-  background-image: url("assets/paper\ yellow.png");
-  width: 20%;
-  height: 20%;
+/* ================= CODE PANEL ================= */
+
+.code-panel {
+  position: fixed;
+  inset: 0;
+  background: url("assets/code panel.png") center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-.sprite.sheet.revealed {
-  background-image: url("assets/color\ sheet.png");
+.hidden { display: none; }
+
+.code-box {
+  background: rgba(0,0,0,0.7);
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
 }
 
-.sprite.box.revealed {
-  background-image: url("assets/code\ panel.png");
+.code-inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.code-inputs input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.error-text {
+  color: red;
+  display: none;
 }

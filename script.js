@@ -1,79 +1,62 @@
-let activeSprite = null;
+const clickSound = new Audio("assets/click1.wav");
+clickSound.preload = "auto";
 
 const game = document.getElementById("game");
+const codePanel = document.getElementById("codePanel");
+const submitBtn = document.getElementById("submitCode");
+const errorText = document.getElementById("codeError");
+const inputs = document.querySelectorAll(".code-inputs input");
 
-const TOTAL_CLUES = 4;
+let activeSprite = null;
 const PASSCODE = "6759";
 
-/* =========================
-   LEVEL SETUP
-========================= */
+/* ================= LOAD LEVEL ================= */
 
 function loadLevel() {
   game.innerHTML = "";
 
-  addSprite("canvas", 124, 405, true);
-  addSprite("vase", 345, 462, true);
-  addSprite("frame", -124, 210, true);
-  addSprite("sheet", 260, 420, true);
-  addSprite("box", 383, 701, false);
+  addSprite("canvas", 328, 405, true);
+  addSprite("vase",   357, 462, true);
+  addSprite("frame",  25, 545, true);
+  addSprite("sheet",  122, 740, true);
+  addSprite("box",    385, 707, false, "treasureBox");
 }
 
-/* =========================
-   SPRITE CREATION
-========================= */
-
-function addSprite(name, top, left, isClue) {
-  const sprite = document.createElement("div");
-  sprite.classList.add("sprite", name);
-  sprite.style.top = top + "px";
-  sprite.style.left = left + "px";
-  sprite.dataset.clue = isClue;
-  game.appendChild(sprite);
+function addSprite(name, top, left, isClue, id=null) {
+  const s = document.createElement("div");
+  s.className = `sprite ${name}`;
+  s.style.top = top + "px";
+  s.style.left = left + "px";
+  if (isClue) s.dataset.clue = "true";
+  if (id) s.id = id;
+  game.appendChild(s);
 }
 
-/* =========================
-   CLICK HANDLER
-========================= */
+/* ================= CLICK HANDLING ================= */
 
-game.addEventListener("click", (e) => {
+game.addEventListener("click", e => {
   const sprite = e.target.closest(".sprite");
 
-  // CLICKED EMPTY SPACE → CLOSE ACTIVE CLUE
   if (!sprite) {
-    closeActiveSprite();
+    closeActive();
     return;
   }
 
-  playClickSound();
-
-  // CLICKED SAME OPEN SPRITE → CLOSE IT
   if (sprite === activeSprite) {
-    closeActiveSprite();
+    closeActive();
     return;
   }
 
-  // CLICKED A DIFFERENT SPRITE
-  if (activeSprite) {
-    closeActiveSprite();
-  }
+  closeActive();
 
-  // TREASURE BOX LOGIC
   if (sprite.classList.contains("box")) {
-    handleBox(sprite);
+    openCodePanel();
     return;
   }
 
-  // NORMAL CLUE
   reveal(sprite);
-  activeSprite = sprite;
+  playClickSound()
 });
-
-
-
-/* =========================
-   CLUE REVEAL
-========================= */
 
 function reveal(sprite) {
   sprite.classList.add("revealed");
@@ -81,39 +64,44 @@ function reveal(sprite) {
   activeSprite = sprite;
 }
 
-function closeActiveSprite() {
+function closeActive() {
   if (!activeSprite) return;
-
   activeSprite.classList.remove("revealed");
   activeSprite = null;
 }
 
+/* ================= CODE PANEL ================= */
 
-/* =========================
-   BOX LOGIC
-========================= */
-
-function handleBox(box) {
+function openCodePanel() {
   if (!allCluesFound()) {
-    alert("Something is missing...");
+    alert("Find all clues first");
     return;
   }
-
-  const code = prompt("Enter the passcode:");
-  if (code === PASSCODE) {
-    reveal(box);
-  } else {
-    alert("Wrong code!");
-  }
+  codePanel.classList.remove("hidden");
 }
+
+submitBtn.addEventListener("click", () => {
+  let code = "";
+  inputs.forEach(i => code += i.value);
+
+  if (code === PASSCODE) {
+    errorText.style.display = "none";
+    codePanel.classList.add("hidden");
+    document.getElementById("treasureBox").classList.add("revealed");
+    levelCompleteSound();
+    doorCreakSound();
+    doorCloseSound();
+  } 
+  else {
+    errorText.style.display = "block";
+  }
+});
+
+/* ================= HELPERS ================= */
 
 function allCluesFound() {
-  return document.querySelectorAll(".sprite[data-clue='true'][data-revealed='true']").length === TOTAL_CLUES;
+  return document.querySelectorAll(".sprite[data-clue][data-revealed]").length === 4;
 }
-
-/* =========================
-   AUDIO (EMPTY SLOT)
-========================= */
 
 function playClickSound() {
   // ADD AUDIO FILE HERE
@@ -121,8 +109,22 @@ function playClickSound() {
   sound.play();
 }
 
-/* =========================
-   START
-========================= */
+function levelCompleteSound(){
+  const levelSound = new Audio("assets/going-to-the-next-level-.WAV");
+  levelSound.play();
+}
+
+function doorCreakSound(){
+  const doorOpen = new Audio("assets/Door Creak.WAV");
+    doorOpen.play();
+}
+
+function doorCloseSound(){
+  const doorClose = new Audio("assets/Door Closing.WAV");
+  doorClose.play();
+}
+
+
+/* ================= START ================= */
 
 loadLevel();
