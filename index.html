@@ -7,12 +7,24 @@
 </head>
 <body>
 
-<header class="header">
-  <h1>Decypher</h1>
-  <p>Level 1</p>
-</header>
-
 <div id="game"></div>
+
+<!-- HUD -->
+<div id="hud">
+  <span id="timer">Time: 02:00</span>
+  <span id="score">Clues: 0 / 4</span>
+</div>
+
+<!-- MESSAGE OVERLAY -->
+<div id="messageOverlay" class="hidden">
+  <div class="message-box">
+    <button id="messageClose" class="message-close">✖</button>
+    <h2 id="messageTitle"></h2>
+    <p id="messageText"></p>
+
+    <div class="message-actions" id="messageActions"></div>
+  </div>
+</div>
 
 <!-- CODE PANEL -->
 <div id="codePanel" class="code-panel hidden">
@@ -31,9 +43,6 @@
   </div>
 </div>
 
-<footer class="footer">
-  <p>&copy; 2025</p>
-</footer>
 
 <script src="script.js"></script>
 </body>
