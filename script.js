@@ -8,7 +8,7 @@ clickSound.volume = 0.7;
 const TOTAL_CLUES = 4;
 let foundClues = 0;
 
-let timeLeft = 120; // seconds
+let timeLeft = 180; // seconds
 let timerInterval = null;
 let gameOver = false;
 
