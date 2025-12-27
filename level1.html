@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Escape Room Level-1</title>
+  <link rel="stylesheet" href="level1.css" />
+</head>
+<body>
+
+    
+
+
+  <div id="game">
+
+  </div>
+  <!-- Horror Timer Display -->
+<div id="timer-display">03:00</div>
+
+<!-- Score Board -->
+<div id="score-board">
+  Clues Found: <span id="score">0</span>
+</div>
+
+<!-- Message after finding all clues -->
+<div id="clue-message" class="clue-msg">
+  All clues found! Find the escape book and write the key.
+</div>
+
+<!-- Time Over Modal -->
+<div id="timer-modal" class="modal">
+  <div class="modal-content">
+    <p id="timer-message">Time Over! You failed to find the key...</p>
+    <button id="exit-btn">Exit</button>
+    <button id="retry-btn">Try Again</button>
+  </div>
+</div>
+<!-- Horror Buttons -->
+<button id="exit-level1" class="horror-btn left-btn">Exit Level 1</button>
+<!-- Horror Passcode Modal -->
+<div id="passcode-modal" class="modal">
+  <div class="modal-content">
+    <p id="passcode-message">Enter the key:</p>
+    <input type="text" id="passcode-input" placeholder="Type here..." />
+    <div style="margin-top: 20px;">
+      <button id="submit-passcode">Submit</button>
+      <button id="close-passcode">Cancel</button>
+    </div>
+    <p id="passcode-error" style="color: red; margin-top: 10px; display:none;">Wrong code!</p>
+  </div>
+</div>
+
+
+
+
+
+
+
+  <script src="level1.js"></script>
+</body>
+</html>

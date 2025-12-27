@@ -1,48 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Escape Room – Level 1</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>DECYPHER | Escape Room</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+<header class="main-header">
+    
+</header>
 
-<div id="game"></div>
+<main class="main-container">
 
-<!-- HUD -->
-<div id="hud">
-  <span id="timer">Time: 02:00</span>
-  <span id="score">Clues: 0 / 4</span>
-</div>
+    <!-- Levels Section -->
+    <section class="levels">
+        <article class="level unlocked" id="lab-level">
+            <h2>Haunted Lab</h2>
+            <p>Experiment gone wrong. Escape before it wakes.</p>
+            <button class="play-btn">Enter</button>
+        </article>
 
-<!-- MESSAGE OVERLAY -->
-<div id="messageOverlay" class="hidden">
-  <div class="message-box">
-    <button id="messageClose" class="message-close">✖</button>
-    <h2 id="messageTitle"></h2>
-    <p id="messageText"></p>
+        <article class="level locked" id="art-level">
+            <h2>Art Room</h2>
+            <p>Where paintings whisper secrets.</p>
+            <button class="lock-btn">Locked</button>
+        </article>
+    </section>
 
-    <div class="message-actions" id="messageActions"></div>
-  </div>
-</div>
+    <!-- Instruction Book -->
+    <section class="instruction-section">
+        <button id="openBook" aria-label="Open Instructions">
+            📖 Instructions
+        </button>
+    </section>
 
-<!-- CODE PANEL -->
-<div id="codePanel" class="code-panel hidden">
-  <div class="code-box">
-    <h2>Enter the code</h2>
+</main>
 
-    <div class="code-inputs">
-      <input maxlength="1">
-      <input maxlength="1">
-      <input maxlength="1">
-      <input maxlength="1">
+<!-- Instruction Paper Overlay -->
+<aside class="overlay hidden" id="instructionOverlay">
+    <div class="paper">
+        <button class="close-btn" id="closeBook">✖</button>
+        <h2>Instructions</h2>
+        <p>
+            <!-- You will replace this text later -->
+            Find clues, decode puzzles, and escape the room before time runs out.
+            Every detail matters. Trust nothing.Start decoding from haunted lab.Find clues and decode the key and escape book will help you further.Decode.Escape.Survive.
+        </p>
     </div>
+</aside>
+<audio id="bg-audio" loop>
+    <source src="assets/horror-spooky.wav" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
-    <button id="submitCode">Unlock</button>
-    <p id="codeError" class="error-text">Wrong code</p>
-  </div>
+
+<!-- Locked Message -->
+<div class="toast hidden" id="lockedMessage">
+    🔒 This level is locked.
 </div>
-
 
 <script src="script.js"></script>
 </body>

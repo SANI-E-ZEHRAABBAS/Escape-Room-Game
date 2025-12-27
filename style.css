@@ -1,215 +1,268 @@
+/* =========================
+   RESET & VIEWPORT LOCK
+========================= */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* =========================
+   BODY & BACKGROUND
+========================= */
 body {
-  background: black;
-  font-family: sans-serif;
+    font-family: 'Georgia', serif;
+    background-image: url("assets/Gemini_Generated_Image_oiwwv3oiwwv3oiww.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #e5e5e5;
+    min-height: 100vh;
+    position: relative;
 }
 
-#game {
-  width: 1000px;
-  height: 600px;
-  margin: 40px auto;
-  position: relative;
-  background: url("assets/room1.jpg") center/contain no-repeat black;
-  overflow: hidden;
+/* Optional dark overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
 }
 
-/* ================= SPRITES ================= */
-
-.sprite {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  transition: transform 0.4s;
+/* =========================
+   HEADER
+========================= */
+.main-header {
+    text-align: center;
+    padding: 2rem 1rem;
 }
 
-.sprite.revealed {
-  transform: scale(1.5);
-  z-index: 5;
+.main-header h1 {
+    font-size: 4rem;
+    letter-spacing: 6px;
 }
 
-/* BEFORE */
-.canvas { 
-  background-image: url("assets/canvas.png"); 
-  width: 60px;
-  height: 60px;
-}
-.vase   { 
-  background-image: url("assets/vase.png"); 
-}
-.frame  { 
-  background-image: url("assets/frame.png");
-  width: 65px;
-  height: 65px;
-}
-.sheet  { 
-  background-image: url("assets/rolled sheet.png"); 
-  width: 55px;
-  height: 55px;
-}
-.box    { 
-  background-image: url("assets/box.png"); 
-  width: 40px;
-  height: 40px;
+.tagline {
+    font-style: italic;
+    opacity: 0.8;
 }
 
-/* AFTER */
-.canvas.revealed { 
-  background-image: url("assets/redClue.png"); 
-}
-.vase.revealed   { 
-  background-image: url("assets/paper Blue.png"); 
-}
-.frame.revealed  { 
-  background-image: url("assets/paper yellow.png"); 
-  /* width: 80px;
-  height: 80px; */
-}
-.sheet.revealed  { 
-  background-image: url("assets/color sheet.png"); 
-  width: 100px;
-  height: 100px;
-}
-.box.revealed    { 
-  background-image: url("assets/key.png"); 
+/* =========================
+   MAIN CONTAINER
+========================= */
+.main-container {
+    min-height: calc(100vh - 160px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
 }
 
-/* ================= CODE PANEL ================= */
+/* =========================
+   INSTRUCTION BUTTON
+========================= */
+.instruction-section {
+    margin-bottom: 1rem;
+}
 
-.code-panel {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75); /* no image */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+.instruction-section button {
+    padding: 0.8rem 2rem;
+    background: #222;
+    border: 1px solid #555;
+    color: #e5e5e5;
+    cursor: pointer;
+    position: relative;
+    top:160px;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+.instruction-section button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #7f0000;
+}
+
+/* =========================
+   LEVELS
+========================= */
+.levels {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position:relative;
+    top:170px;
+}
+
+/* Shared card styles */
+.level {
+    width: 260px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.8);
+    text-align: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Unlocked Level */
+.level.unlocked {
+    border: 2px solid #7f0000;
+    background-image: url("assets/lab.png");
+        opacity: 0.75;
+
+}
+
+/* Locked Level */
+.level.locked {
+    border: 2px solid #7f0000;
+    background-image: url("assets/room1.jpg");
+    filter: grayscale(50%);
+    opacity: 1;
+}
+
+/* Overlay for card readability */
+.level::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    border-radius: 12px;
+    z-index: 0;
+}
+
+.level > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Level Text */
+.level h2 {
+    margin-bottom: 1rem;
+}
+
+.level p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.play-btn,
+.lock-btn {
+    padding: 0.6rem 1.5rem;
+    background: #7f0000;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #7f0000;
+}
+
+.lock-btn {
+    background: #333;
+    cursor: not-allowed;
+}
+
+/* =========================
+   OVERLAY & PAPER
+========================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hidden {
-  display: none; 
+    display: none;
 }
 
-.code-box {
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 12px;
-  width: 300px;     /* smaller */
-  text-align: center;
+.paper {
+    background: #f3e6c8;
+    color: #2b1b0f;
+    padding: 2.5rem;
+    width: 420px;
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.9);
+    position: relative;
 }
 
-.code-inputs {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 15px;
+.paper h2 {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
-.code-inputs input {
-  width: 45px;
-  height: 45px;
-  font-size: 22px;
-  text-align: center;
-  border-radius: 6px;
-  border: none;
-  outline: none;
+.paper p {
+    line-height: 1.6;
 }
 
-/* YOU CAN CHANGE THESE COLORS */
-.code-inputs input:nth-child(1) { background: #2d7c20; }
-.code-inputs input:nth-child(2) { background: #51067c; }
-.code-inputs input:nth-child(3) { background: #e99700 }
-.code-inputs input:nth-child(4) { background: #583103; }
-
-
-.error-text {
-  color: red;
-  display: none;
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
-/* ================= HUD ================= */
-
-#hud {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  display: flex;
-  justify-content: space-between;
-  color: #fff;
-  font-size: 25px;
-  pointer-events: none;
+/* =========================
+   LOCKED TOAST
+========================= */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid #7f0000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
 }
 
-/* ================= MESSAGE OVERLAY ================= */
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
 
-#messageOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
+@media (max-width: 768px) {
+    body{
+        width:fit-content;
 
-#messageOverlay.hidden {
-  display: none;
-}
+    }
 
-.message-box {
-  background: #1c1c1c;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  width: 360px;
-  color: #fff;
-  position: relative;
-}
+    .levels {
+        flex-direction: column;
+        gap: 2rem;
+    }
 
-.message-box h2 {
-  margin-bottom: 10px;
-}
+    .level {
+        width: 90%;
+        max-width: 320px;
+    }
 
-.message-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-}
+    .main-header h1 {
+        font-size: 2.5rem;
+    }
 
-
-.message-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.message-actions button {
-  padding: 10px 18px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.sprite {
-  cursor: default;
-}
-
-.sprite:hover {
-  filter: brightness(1.05);
+    .paper {
+        width: 90%;
+    }
 }

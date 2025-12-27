@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Escape Room – Level 1</title>
+  <link rel="stylesheet" href="level2.css" />
+</head>
+<body>
+
+<div id="game"></div>
+
+<!-- HUD -->
+<div id="hud">
+  <span id="timer">Time: 02:00</span>
+  <span id="score">Clues: 0 / 4</span>
+</div>
+
+<!-- MESSAGE OVERLAY -->
+<div id="messageOverlay" class="hidden">
+  <div class="message-box">
+    <button id="messageClose" class="message-close">✖</button>
+    <h2 id="messageTitle"></h2>
+    <p id="messageText"></p>
+
+    <div class="message-actions" id="messageActions"></div>
+  </div>
+</div>
+
+<!-- CODE PANEL -->
+<div id="codePanel" class="code-panel hidden">
+  <div class="code-box">
+    <h2>Enter the code</h2>
+
+    <div class="code-inputs">
+      <input maxlength="1">
+      <input maxlength="1">
+      <input maxlength="1">
+      <input maxlength="1">
+    </div>
+
+    <button id="submitCode">Unlock</button>
+    <p id="codeError" class="error-text">Wrong code</p>
+  </div>
+</div>
+
+
+<script src="level2.js"></script>
+</body>
+</html>

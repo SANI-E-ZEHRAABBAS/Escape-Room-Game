@@ -1,0 +1,315 @@
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+  margin: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* =========================
+   GAME CONTAINER
+========================= */
+
+#game {
+  width: 1000px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  position: fixed;
+
+  /* ROOM BACKGROUND (ADD YOUR ROOM IMAGE HERE) */
+  background-image: url("assets/lab.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: black;
+}
+
+/* =========================
+   BASE SPRITE STYLE
+========================= */
+
+.sprite {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+/* =========================
+   SPRITES BEFORE CLICK
+========================= */
+
+.sprite.sprite1 {
+  background-image: url("assets/sp1.png");
+  height: 78%;
+  width: 3%;
+}
+
+.sprite.sprite2 {
+  background-image: url("assets/sp2.png");
+  height: 50%;
+  width:3.5%;
+}
+
+.sprite.sprite3 {
+  background-image: url("assets/sp3.png");
+  width: 5%;
+  height: 80%;
+}
+
+.sprite.sprite4 {
+  background-image: url("assets/sp4.png");
+  height: 80;
+  width:4%;
+
+}
+
+.sprite.book {
+  background-image: url("assets/boook.png");
+  height: 20%;
+  width: 6%;
+}
+
+/* =========================
+   SPRITES AFTER CLICK (REVEALED)
+========================= */
+
+.sprite.revealed {
+  transform: scale(1.6);
+  z-index: 10;
+  height: 25%;
+  width: 25%;
+}
+
+.sprite.sprite1.revealed {
+  background-image: url("assets/clue1.png");
+}
+
+.sprite.sprite2.revealed {
+  background-image: url("assets/clue2.png");
+}
+
+.sprite.sprite3.revealed {
+  background-image: url("assets/clue3.png");
+  width: 20%;
+  height: 20%;
+}
+
+.sprite.sprite4.revealed {
+  background-image: url("assets/clue4.png");
+}
+
+.sprite.book.revealed {
+  background-image: url("assets/boook.png");
+}
+/* =========================
+   HORROR TIMER DISPLAY
+========================= */
+#timer-display {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 36px;
+  color: red;
+  font-family: 'Creepster', cursive; 
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+  z-index: 100;
+  animation: flicker 0.2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* =========================
+   HORROR SCORE BOARD
+========================= */
+#score-board {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  color: red;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  font-family: 'Creepster', cursive;
+  z-index: 100;
+  animation: flicker 0.3s infinite;
+}
+
+/* =========================
+   MESSAGE AFTER 4/4
+========================= */
+.clue-msg {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  color: red;
+  padding: 30px 40px;
+  border-radius: 20px;
+  font-size: 28px;
+  text-align: center;
+  border: 3px solid red;
+  box-shadow: 0 0 50px red;
+  font-family: 'Creepster', cursive;
+  z-index: 1000;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* =========================
+   HORROR TIMER MODAL
+========================= */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.95);
+  color: #ff0000;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  flex-direction: column;
+  font-family: 'Creepster', cursive;
+  animation: modalShake 0.5s infinite;
+}
+
+.modal-content {
+  background-color: #111;
+  padding: 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 3px solid red;
+  box-shadow: 0 0 50px red;
+}
+
+.modal-content button {
+  padding: 15px 25px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background-color: red;
+  color: black;
+  font-weight: bold;
+  text-shadow: 0 0 5px black;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.modal-content button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px red;
+}
+
+@keyframes modalShake {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(-5px, 5px); }
+  50% { transform: translate(5px, -5px); }
+  75% { transform: translate(-5px, -5px); }
+}
+/* =========================
+   HORROR BUTTONS
+========================= */
+.horror-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 40px;
+  font-size: 20px;
+  font-family: 'Creepster', cursive;
+  color: black;
+  background-color: red;
+  border: 3px solid darkred;
+  border-radius: 15px;
+  cursor: pointer;
+  text-shadow: 0 0 5px black;
+  box-shadow: 0 0 20px red;
+  z-index: 100;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: flicker 0.3s infinite;
+}
+
+.horror-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 0 50px red;
+}
+
+/* Positioning */
+.left-btn { left: 20px; }
+/* =========================
+   PASSCODE MODAL
+========================= */
+#passcode-modal .modal-content {
+  background-color: #111;
+  border: 3px solid red;
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: red;
+  font-family: 'Creepster', cursive;
+  box-shadow: 0 0 50px red;
+  animation: pulse 1s infinite;
+}
+
+#passcode-modal input {
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid red;
+  outline: none;
+  background-color: black;
+  color: red;
+  text-align: center;
+  font-family: 'Creepster', cursive;
+}
+
+#passcode-modal input::placeholder {
+  color: darkred;
+}
+
+#passcode-modal button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background-color: red;
+  color: black;
+  cursor: pointer;
+  font-family: 'Creepster', cursive;
+  text-shadow: 0 0 5px black;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#passcode-modal button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px red;
+}
+
+
+
